@@ -8,7 +8,7 @@
     print "Ik zit op het ";
     $schoolnaam = "Techniek College Rotterdam";
     echo $schoolnaam;
-    echo ". ";
+    echo "<br>";
     
     // $naam is een variabel
     $age = "17";
