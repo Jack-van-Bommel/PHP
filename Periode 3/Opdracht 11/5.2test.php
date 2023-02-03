@@ -8,19 +8,10 @@
 </head>
 <body>
     <?php
-    $y = 0;
-    switch ($x) {
-        case 1: $y += 5;
-        break;
-        case 2: $y += 10;
-        break;
-        case 3: $y += 15;
-        break;
-        case 4: $y += 20;
-        break;
-        case 5: $y += 25;
+    $saldo = 0;
+    for($x = 0; $saldo < 10000; $x++){
+        $saldo = $saldo + $x;
     }
-    echo $y;
     ?>
 </body>
 </html>
