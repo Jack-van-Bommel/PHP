@@ -26,7 +26,7 @@
 <?php
 
 
-echo "Bedrag inclusief", $_POST["korting"], "% korting: ", $answer;
+
 ?>
 
 </body>
