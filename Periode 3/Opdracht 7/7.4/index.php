@@ -25,7 +25,19 @@
 
 <?php
 
+if (isset($_POST["prijs"], $_POST["korting"])) {
+    $prijs = $_POST["prijs"];
+    $korting = $_POST["korting"];
+    calculate($prijs, $korting);
+}
 
+function calculate($prijs, $korting) {
+    $kortinggedeeld = $korting / 100;
+    $kortingbijna = 1 - $kortinggedeeld;
+    $answer = $prijs * $kortingbijna;
+    $finalanswer = number_format($answer, 2, ".", "");
+    echo "Bedrag inclusief ", $korting, "% korting: ", "\xE2\x82\xAc", $finalanswer;
+}
 
 ?>
 
