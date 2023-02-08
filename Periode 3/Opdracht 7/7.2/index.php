@@ -7,7 +7,7 @@
     <title>Opdracht 7.2</title>
 </head>
 <body>
-  
+ 
 <form method="POST" action="">
     <label for="num1">Getal 1</label>
     <input type="number" name="num1" placeholder="Getal 1">
@@ -40,6 +40,12 @@
 <?php
 echo "<br>";
 
+// Checks if the variable is set to prevent an error on the website before radio usage is set
+if (!isset($_POST["usage"])) {
+    $_POST["usage"] = "not set";
+}
+
+// switch case to decide which radio usage is set and what to do
 switch ($_POST["usage"]) {
     case "optellen": $answer = $_POST["num1"] + $_POST["num2"];
     case "optellen": echo $_POST["num1"], " + ", $_POST["num2"], " = ", "$answer";
