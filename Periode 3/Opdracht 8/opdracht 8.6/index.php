@@ -10,7 +10,7 @@
     
 <form method="POST" action="">
 <label for="num">Nummer: </label>
-<input type="text" name="num">
+<input type="text" name="num" minlenght=1 maxlength=9>
 
 <br><br>
 
@@ -22,10 +22,26 @@
 <?php
 session_start();
 
-//session variable doesn't keep adding numbers, instead changes entire value
-$value = $_POST["num"];
-$_SESSION["numbers"] = $value;
-echo $_SESSION["numbers"];
+if (isset($_POST["num"])) {
+    counting();
+    echo "<br>";
+    echo "Gemiddelde: " . arraycount();
+}
+
+function arraycount() {
+    $num = $_POST["num"];
+    $_SESSION["numvar"][] = $num;
+
+    $total = array_sum($_SESSION["numvar"]);
+    $totalarrays = count($_SESSION["numvar"]);
+    $answer = $total / $totalarrays;
+    return $answer;
+}
+
+function counting() {
+    $_SESSION["counting"]++;
+    echo "Aantal toegoevoegde cijfers: " . $_SESSION["counting"];
+}
 
 ?>
 
