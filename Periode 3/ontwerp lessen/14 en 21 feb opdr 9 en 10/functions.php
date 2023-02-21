@@ -2,21 +2,20 @@
 // functie: Algemene functies tbv hergebruik
 // Connect met database function
 function ConnectDb() {
-    
-$dbname = "bieren";
-$servername = "localhost";
-$username = "root";
-$password = "";
+    $dbname = "bieren";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
 
     try {
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         // set the PDO error mode to exception
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $db;
     } catch (PDOException $e){
         die("Error: " . $e->getMessage());
     } 
-    return $db;
-} 
+}
 
 // print bieren overzicht function
 function OvzBieren($db) {
@@ -31,4 +30,15 @@ function OvzBieren($db) {
     }
     echo "</table>";
 }
+
+// Print brouwers overzicht function
+function OvzBrouwers() {
+
+}
+
+// Function to print a html table
+function PrintTable() {
+
+}
+
 ?>
