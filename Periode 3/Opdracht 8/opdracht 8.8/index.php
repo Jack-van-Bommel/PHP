@@ -13,7 +13,7 @@
     <input type="text" name="fruitsoort">
     <br><br>
 
-    <input type="submit" name="toevoegen" value="Toevoegen">
+    <input type="submit" name="toevoegen" value="Toevoegen aan array">
     <br><br>
 
     <p>--------------------</p>
@@ -29,13 +29,23 @@
 
 
 <?php
+session_start();
 
-if (isset($_POST["toevoegen"])) {
-    $fruits = array();
-    array_push($fruits, $_POST["fruitsoort"]);
-    var_dump($fruits);
+
+if (isset($_POST["fruitsoort"])) {
+    $fruitsoort = $_POST["fruitsoort"];
+    $_SESSION["fruit"][] = $fruitsoort;
+    echo "Inhoud van de array: <br>";
+
 }
 
+function echoinhoud() {
+    
+}
+
+if (isset($_POST["sorteer_btn"])) {
+    
+}
 ?>
 
 </body>
