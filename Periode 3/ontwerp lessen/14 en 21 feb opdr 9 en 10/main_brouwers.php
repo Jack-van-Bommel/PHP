@@ -9,7 +9,13 @@
 <body>
     
 <?php
+include "functions.php";
 
+$db = Connectdb();
+
+$result = OvzBrouwers($db);
+
+PrintTable($result);
 
 
 ?>
