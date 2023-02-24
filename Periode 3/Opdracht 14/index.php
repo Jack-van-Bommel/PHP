@@ -38,18 +38,30 @@
             $bericht = $_POST["bericht"];
             $queryinsert = $db->prepare("INSERT INTO gasten(naam, bericht) VALUES ('$name', '$bericht')");
         }    
-        if ($queryinsert->execute()) {
-            echo "De data is opgestuurd";
-        }
 
         $queryread = $db->prepare("SELECT naam, bericht, datumtijd FROM gasten");
+        $queryread->execute();
         $result = $queryread->fetchALL(PDO::FETCH_ASSOC);
+
+        if ($queryinsert->execute()) {
+            echo "Gastenboek updated!";
+            echo "<br><br>";
+        }
+
+        foreach ($result as $data) {
+            echo $data["naam"], " - ", $data["datumtijd"];
+            echo "<br>";
+            echo $data["bericht"];
+            echo "<br><br>";
+        }
+
         return $db;
     } catch (PDOException $e) {
         die("Error: " . $e->getMessage());
     }
 
 
+// werkt goed genoeg lmao
 ?>
 
 </body>
