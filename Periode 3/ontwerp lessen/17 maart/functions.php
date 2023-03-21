@@ -1,86 +1,194 @@
 <?php
-// functie: Algemene functies tbv hergebruik
-
-// Connect met database bieren function
-function ConnectDb() {
-    $dbname = "bieren";
+// auteur: Wigmans
+// functie: algemene functies tbv hergebruik
+ function ConnectDb(){
     $servername = "localhost";
     $username = "root";
     $password = "";
-
+    $dbname = "bieren";
+   
     try {
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         // set the PDO error mode to exception
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $db;
-    } catch (PDOException $e){
-        die("Error: " . $e->getMessage());
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        echo "Connected successfully";
+        return $conn;
     } 
-}
-
-// function to get beer results from database
-function Getbieren($db) {
-    $querybier = $db->prepare("SELECT biercode, naam, soort, stijl, alcohol, brouwcode FROM bier");
-    $querybier->execute();
-    $result = $querybier->fetchALL(PDO::FETCH_ASSOC);
-    return $result;
-}
-
-// Function to print beers in a table
-function Printbieren($result) {
-    $wijzigbtn = "<td><input type='submit' value='Wijzig' name='wijzig_btn'></td>";
-    $verwijderbtn = "<td><input type='submit' value='Verwijderen' name='verwijder_btn'></td>";
-
-    echo "<a href='#'>Toevoegen</a>";
-
-    echo "<table border=1>";
-    echo "<th>Biercode</th> <th>Biernaam</th> <th>Soort</th> <th>Stijl</th> <th>Alcohol</th> <th>Brouwcode</th>";
-
-    foreach ($result as &$data){
-        echo "<tr><td>" . $data["biercode"] . "</td>";
-        echo "<td>" . $data["naam"] . "</td>";
-        echo "<td>" . $data["soort"] . "</td>";
-        echo "<td>" . $data["stijl"] . "</td>";
-        echo "<td>" . $data["alcohol"] . "</td>";
-        echo "<td>" . $data["brouwcode"] . "</td>";
-        echo "<form method='POST'>";
-        echo $wijzigbtn;
-        echo $verwijderbtn;
-        echo "</form>";
-        echo "</tr>";
+    catch(PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
     }
-    echo "</table>";
-}
 
-// Print brouwers overzicht function
-function OvzBrouwers($db) {
-    $querybrouwer = $db->prepare("SELECT brouwcode, naam, land FROM brouwer");
-    $querybrouwer->execute();
-    $result = $querybrouwer->fetchALL(PDO::FETCH_ASSOC);
-    return $result;
-}
+ }
 
-function UpdateBier($row) {
-    echo "Update row<br>";
-    var_dump($row);
-
-    // Connect Database
+ 
+ 
+ function GetData($table){
+    // Connect database
     $conn = ConnectDb();
 
-    // Update data uit de opgegeven table method query
+    // Select data uit de opgegeven table methode query
     // query: is een prepare en execute in 1 zonder placeholders
+    // $result = $conn->query("SELECT * FROM $table")->fetchAll();
 
-    // Update data uit de opgegeven table method prepare
-    $sql = "UPDATE 'bier'
-        SET 'naam' = '$row['naam']'
-        WHERE 'bier'.'biercode' = 2;"
-    $query = $conn->prepare("$sql");
+    // Select data uit de opgegeven table methode prepare
+    $query = $conn->prepare("SELECT * FROM $table");
     $query->execute();
+    $result = $query->fetchAll();
 
+    return $result;
+ }
+
+ function GetBier($biercode){
+    // Connect database
+    $conn = ConnectDb();
+
+    // Select data uit de opgegeven table methode query
+    // query: is een prepare en execute in 1 zonder placeholders
+    // $result = $conn->query("SELECT * FROM $table")->fetchAll();
+
+    // Select data uit de opgegeven table methode prepare
+    $query = $conn->prepare("SELECT * FROM bier WHERE biercode = $biercode");
+    $query->execute();
+    $result = $query->fetch();
+
+    return $result;
+ }
+
+
+ function OvzBieren(){
+
+    // Haal alle bier record uit de tabel 
+    $result = GetData("bier");
+    
+    //print table
+    PrintTable($result);
+    
+ }
+
+ function OvzBrouwers(){
+    // Haal alle bier record uit de tabel 
+    $result = GetData("brouwer");
+    
+    //print table
+    PrintTable($result);
+     
+ }
+
+ function PrintTableTest($result){
+    // Zet de hele table in een variable en print hem 1 keer 
+    $table = "<table border = 1px>";
+    // print elke rij
+    foreach ($result as $row) {
+        echo "<br> rij:";
+        
+        foreach ($row as  $value) {
+            echo "kolom" . "$value";
+        }          
+        
+    }
 }
 
-function DeleteBier($biercode) {
-    echo "Delete row<br>";
-    var_dump($biercode);
+// Function 'PrintTable' print een HTML-table met data uit $result.
+function PrintTable($result){
+    // Zet de hele table in een variable en print hem 1 keer 
+    $table = "<table border = 1px>";
+
+    // Print header table
+
+    // haal de kolommen uit de eerste [0] van het array $result mbv array_keys
+    $headers = array_keys($result[0]);
+    $table .= "<tr>";
+    foreach($headers as $header){
+        $table .= "<th bgcolor=gray>" . $header . "</th>";   
+    }
+
+    // print elke rij
+    foreach ($result as $row) {
+        
+        $table .= "<tr>";
+        // print elke kolom
+        foreach ($row as $cell) {
+            $table .= "<td>" . $cell . "</td>";
+        }
+        $table .= "</tr>";
+    }
+    $table.= "</table>";
+
+    echo $table;
 }
+
+
+function CrudBieren(){
+
+    // Haal alle bier record uit de tabel 
+    $result = GetData("bier");
+    
+    //print table
+    PrintCrudBier($result);
+    
+ }
+function PrintCrudBier($result){
+    // Zet de hele table in een variable en print hem 1 keer 
+    $table = "<table border = 1px>";
+
+    // Print header table
+
+    // haal de kolommen uit de eerste [0] van het array $result mbv array_keys
+    $headers = array_keys($result[0]);
+    $table .= "<tr>";
+    foreach($headers as $header){
+        $table .= "<th bgcolor=gray>" . $header . "</th>";   
+    }
+
+    // print elke rij
+    foreach ($result as $row) {
+        
+        $table .= "<tr>";
+        // print elke kolom
+        foreach ($row as $cell) {
+            $table .= "<td>" . $cell . "</td>";
+        }
+        
+        // Wijzig knopje
+        $table .= "<td>". 
+            "<form method='post' action='update_bier.php?biercode=$row[biercode]' >       
+                    <button name='wzg'>Wzg</button>	 
+            </form>" . "</td>";
+
+        // Delete via linkje href
+        $table .= '<td><a href="delete_bier.php?biercode=$row[biercode]">verwijder</a></td>';
+        
+        $table .= "</tr>";
+    }
+    $table.= "</table>";
+
+    echo $table;
+}
+
+// update bier database functions
+function UpdateBier($row){
+    echo "Update row<br>";
+
+    try {
+        $conn = ConnectDb();
+
+
+        $sql = "UPDATE bier
+        SET
+            naam = '$row[naam]',
+            soort = '$row[soort]',
+            stijl = '$row[stijl]',
+            alcohol = '$row[alcohol]',
+            brouwcode = '$row[brouwcode]'
+        WHERE biercode = $row[biercode]";
+
+        $query = $conn->prepare($sql);
+        $query->execute();
+    }
+    catch (PDOException $e) {
+        echo "ERROR: " . $e->getmessage();
+    }
+}
+
 ?>
