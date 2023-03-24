@@ -7,7 +7,7 @@
     <title>Filteren server data</title>
 </head>
 <body>
-    
+
 <?php
 
 $data = $_SERVER["HTTP_USER_AGENT"];
@@ -24,7 +24,10 @@ function besturingsysteem($data) {
 }
 
 function browsers($data) {
-    if (str_contains($data, "Chrome")) {
+    if(str_contains($data, "Chrome") && str_contains($data, "Edg")) {
+        $browser = "Microsoft Edge";
+    }
+    else if(str_contains($data, "Chrome")) {
         $browser = "Google Chrome";
     }
     else {
