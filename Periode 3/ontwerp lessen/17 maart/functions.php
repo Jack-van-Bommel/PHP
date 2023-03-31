@@ -12,7 +12,6 @@
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        echo "Connected successfully";
         return $conn;
     } 
     catch(PDOException $e) {
@@ -153,11 +152,17 @@ function PrintCrudBier($result){
         // Wijzig knopje
         $table .= "<td>". 
             "<form method='post' action='update_bier.php?biercode=$row[biercode]' >       
-                    <button name='wzg'>Wzg</button>	 
+                    <button name='wzg'>Wijzigen</button>	 
             </form>" . "</td>";
 
         // Delete via linkje href
-        $table .= '<td><a href="delete_bier.php?biercode=$row[biercode]">verwijder</a></td>';
+        // $table .= '<td><a href="delete_bier.php?biercode='.$row["biercode"].'">verwijder</a></td>';
+
+        // Delete via $_POST
+        $table .= "<td>". 
+        "<form method='post'>       
+                <button name='del' value='$row[biercode]'>Verwijderen</button>	 
+        </form>" . "</td>";
         
         $table .= "</tr>";
     }
@@ -189,6 +194,29 @@ function UpdateBier($row){
     catch (PDOException $e) {
         echo "ERROR: " . $e->getmessage();
     }
+}
+
+// Delete bier function
+function DeleteBier($row) {
+    try {
+        $conn = ConnectDb();
+
+        $sql = "DELETE FROM bier WHERE `bier`.`biercode` = $row[biercode]";
+        $query = $conn->prepare($sql);
+        $query->execute();
+    }
+    catch (PDOException $e) {
+        die("ERROR: " . $e->getmessage());
+    }
+}
+
+// Delete bier safer version using $_POST
+if (isset($_POST["del"])) {
+    $biercode = $_POST["del"];
+    $row = GetBier($biercode);
+    DeleteBier($row);
+
+    echo"<script type='text/javascript'>alert('Bier verwijdert: $row[naam]');</script>";
 }
 
 ?>
