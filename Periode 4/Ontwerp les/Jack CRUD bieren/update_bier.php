@@ -1,25 +1,27 @@
 <?php
+// Update bier in the database
+// Auteur: Jack
+
+    // Initialising
     echo "<h1>Update Bier</h1>";
     require_once('functions.php');
 
     // Test of er op de wijzig-knop is gedrukt 
     if(isset($_POST) && isset($_POST['btn_wzg'])){
         UpdateBier($_POST);
-
-        //header("location: update.php?$_POST[NR]");
     }
 
+    // Test if we have the biercode
     if(isset($_GET['biercode'])){  
         echo "<br>Data uit het vorige formulier:<br>";
         // Haal alle info van de betreffende biercode $_GET['biercode']
         $biercode = $_GET['biercode'];
         $row = GetBier($biercode);
     }
-
-    dropDown($label, $data);
     
    ?>
 
+<!-- HTML code for the form -->
 <html>
     <body>
         <form method="post">
@@ -31,6 +33,12 @@
         Alcohol: <input type="text" name="alcohol" value="<?= $row['alcohol']?>"><br>
         Brouwcode: <input type="text" name="brouwcode" value="<?= $row['brouwcode']?>"><br><br>
          <input type="submit" name="btn_wzg" value="Wijzigen"><br>
+
+         <!-- PHP code for the brouwers dropdown -->
+        <?php
+            dropDown("brouwcode", GetData("brouwer"), $row["brouwcode"]);
+        ?>
+
         </form>
     </body>
 </html>

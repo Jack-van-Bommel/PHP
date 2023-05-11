@@ -65,9 +65,6 @@ function printtable($result, $total, $percent) {
         $table .= "<td>" . $data["stemmen"] . "</td>";
     }
     foreach ($result as $cell) {
-        for($i = $result;$i++) {
-
-        }
         $table .= "</tr>";
     }
 

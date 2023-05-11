@@ -1,4 +1,8 @@
 <?php
+// Delete bier from database
+// Auteur: Jack
+
+
 // We need this so we can use all the pre-made functions and data
 require_once('functions.php');
 

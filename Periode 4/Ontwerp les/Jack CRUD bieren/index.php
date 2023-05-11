@@ -6,7 +6,7 @@
 // Initialisatie
 include 'functions.php';
 
-// Print bieren opdracht 12
+// Print bieren CRUD
 CrudBieren();
 
 ?>

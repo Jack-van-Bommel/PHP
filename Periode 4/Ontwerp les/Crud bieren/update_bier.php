@@ -32,7 +32,7 @@
 
          
         <?php
-            dropDown("brouwcode", GetData("brouwer"));
+            dropDown("brouwcode", GetData("brouwer"), $row["brouwcode"]);
         ?>
 
         </form>

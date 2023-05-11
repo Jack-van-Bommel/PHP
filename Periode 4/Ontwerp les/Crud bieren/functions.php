@@ -120,6 +120,11 @@ function PrintTable($result){
 
 function CrudBieren(){
 
+    $nav = "<h1>CRUD bieren</h1>";
+    $nav .= "<a href='nieuw_bier.php'>Nieuw biertje toevoegen</a>";
+
+    echo $nav;
+
     // Haal alle bier record uit de tabel 
     $result = GetData("bier");
     
@@ -220,17 +225,55 @@ if (isset($_POST["del"])) {
 }
 
 
-function dropDown($label, $data) {
+function dropDown($label, $data, $row_selected) {
     $txt = "
     <label for='$label'>Choose a $label:</label>
         <select name='$label' id='$label'>";
 
-    foreach ($data as $row) {
-        $txt .= "<option value='$row[brouwcode]'>$row[naam]</option>";
+    foreach($data as $row) {
+        if ($row['brouwcode'] == $row_selected){
+            $txt .= "<option value='$row[brouwcode]' selected='selected'>$row[naam]</option>\n";
+        } 
+        else {
+           $txt .= "<option value='$row[brouwcode]'>$row[naam]</option>\n";
+        }
     }
 
     $txt .= "</select>";
     echo $txt;
 }
+
+function dropDown2($label, $data) {
+    $txt = "
+    <label for='$label'>Choose a $label:</label>
+        <select name='$label' id='$label'>";
+
+    foreach($data as $row) {
+        $txt .= "<option value='$row[brouwcode]'>$row[naam]</option>\n";
+    }
+
+    $txt .= "</select>";
+    echo $txt;
+}
+
+
+function sentdata() {
+    $conn = connectdb();
+
+    $naam = $_POST["naam"];
+    $soort = $_POST["soort"];
+    $stijl = $_POST["stijl"];
+    $alcohol = $_POST["alcohol"];
+    $brouwer = $_POST["brouwcode"];
+
+
+    $sql = "INSERT INTO `bier` (`biercode`, `naam`, `soort`, `stijl`, `alcohol`, `brouwcode`) VALUES (NULL, '$naam', '$soort', '$stijl', '$alcohol', '$brouwer')";
+    $query = $conn->prepare($sql);
+    $query->execute();
+
+    echo "Nieuw biertje genaamd $_POST[naam] is toegevoegd aan de database! <br>";
+    echo "<a href='crud_bieren.php'>Keer terug naar CRUD bieren</a>";
+}
+
 
 ?>
