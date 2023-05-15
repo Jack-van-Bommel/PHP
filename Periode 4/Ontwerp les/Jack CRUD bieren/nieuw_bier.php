@@ -11,6 +11,9 @@ require_once("functions.php");
     <h1>Nieuw biertje toevoegen</h1>
     <br>
 
+    <p>Biercode wordt automatisch gegenereerd!</p>
+    <br>
+    
     <form method='POST'>
     <label for='name'>Naam: </label>
     <input type='' name='naam'>
