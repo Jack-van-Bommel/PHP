@@ -1,31 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-</head>
-<body>
+<!-- Homepage - Jack -->
+
+<!-- HTML Code -->
+<html>
     
 <main>
-    <h1>PDO Login and Registration</h1>
+    <h1>PHP - PDO Login and Registration</h1>
     <hr/>
     <h2>Welkom op de HOME-pagina!</h2>
     <br><br>
 </main>
 
+</html>
+
+<!-- PHP Code -->
 <?php
 
-$templogin = false;
+$templogin = 0;
 
-if ($templogin == true) {
+if ($templogin == false) {
     echo "U bent niet ingelogd. Login om verder te gaan. <br>";
     echo "<a href='login_form.php'>Login</a>";
 }
+else if ($templogin == true) {
+    echo "U bent ingelogd met de volgende gegevens:<br>";
+    echo "Username: " . "username" . "<br>";
+    echo "Password: " . "password" . "<br>";
+    logout_btn();
+}
 
+function logout_btn() {
+    echo "<a href=''>Logout</a>";
+}
 
 ?>
 
-</body>
-</html>
