@@ -21,12 +21,13 @@ function ConnectDb(){
      }
 }
 
-function register_user($userdata) {
+function matchData($data) {
     $conn = ConnectDb();
 
-    
-    $username = $userdata['username'];
+    $username = $data["username"];
     echo $username;
 }
+
+
 
 ?>

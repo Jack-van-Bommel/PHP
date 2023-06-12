@@ -18,7 +18,7 @@ require_once("functions.php");
 </header>
 
 <main>
-    <form method="post">
+    <form method="post" action='register_update.php'>
         <label for="username">Username: </label>
         <input type="text" name="username">
         <br>
@@ -36,9 +36,5 @@ require_once("functions.php");
 <!-- PHP code -->
 <?php
 
-if (isset($_POST["register_btn"])) {
-    $userdata = $_POST;
-    register_user($userdata);
-}
 
 ?>

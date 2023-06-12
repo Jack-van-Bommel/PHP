@@ -10,7 +10,7 @@
 </header>
 <main>
 <!-- Login form -->
-<form method='POST'>
+<form method='POST' action='login_validate.php'>
     <label for='user'>Username</label>
     <input type='text' name='user'>
     <br>
