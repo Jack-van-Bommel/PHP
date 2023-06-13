@@ -1,7 +1,10 @@
 <!-- All PHP functions - Jack -->
 
 <?php
+// Start session
+session_start();
 
+// Basic database connection function, used to create $conn
 function ConnectDb(){
     $servername = "localhost";
     $username = "root";
@@ -13,7 +16,7 @@ function ConnectDb(){
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        echo "Database connection has been made!<br>";
+        // echo "Database connection has been made!<br>";
         return $conn;
      } 
     catch(PDOException $e) {
@@ -21,13 +24,26 @@ function ConnectDb(){
      }
 }
 
-function matchData($data) {
-    $conn = ConnectDb();
+// TEMP session login function
+function templogin() {
+    $_SESSION["login"] = 0;
 
-    $username = $data["username"];
-    echo $username;
+    if ($_SESSION["login"] == false) {
+        echo "U bent niet ingelogd. Login om verder te gaan. <br>";
+        echo "<a href='login_form.php'>Login</a>";
+    }
+    else if ($_SESSION["login"] == true) {
+        echo "U bent ingelogd met de volgende gegevens:<br>";
+        echo "Username: " . "username" . "<br>";
+        echo "Password: " . "password" . "<br>";
+        logout_btn();
+    }
 }
 
+// TEMP logout btn
+function logout_btn() {
+    echo "<a href=''>Logout</a>";
+}
 
 
 ?>

@@ -1,4 +1,9 @@
 <!-- Homepage - Jack -->
+<!-- Initialising -->
+<?php
+require_once "functions.php";
+?>
+
 
 <!-- HTML Code -->
 <html>
@@ -12,25 +17,11 @@
 
 </html>
 
+
 <!-- PHP Code -->
 <?php
+templogin();
 
-$templogin = 0;
-
-if ($templogin == false) {
-    echo "U bent niet ingelogd. Login om verder te gaan. <br>";
-    echo "<a href='login_form.php'>Login</a>";
-}
-else if ($templogin == true) {
-    echo "U bent ingelogd met de volgende gegevens:<br>";
-    echo "Username: " . "username" . "<br>";
-    echo "Password: " . "password" . "<br>";
-    logout_btn();
-}
-
-function logout_btn() {
-    echo "<a href=''>Logout</a>";
-}
 
 ?>
 

@@ -1,10 +1,7 @@
 <!-- Register user page - Jack -->
-
-
 <!-- PHP Intialising -->
 <?php
 require_once("functions.php");
-
 ?>
 
 
@@ -20,11 +17,11 @@ require_once("functions.php");
 <main>
     <form method="post" action='register_update.php'>
         <label for="username">Username: </label>
-        <input type="text" name="username">
+        <input type="text" name="username" required>
         <br>
 
         <label for="password">Password: </label>
-        <input type="password" name="password">
+        <input type="password" name="password" required>
         <br>
 
         <input type="submit" name="register_btn">
