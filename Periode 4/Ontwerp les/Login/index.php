@@ -12,7 +12,7 @@ require_once "functions.php";
     <h1>PHP - PDO Login and Registration</h1>
     <hr/>
     <h2>Welkom op de HOME-pagina!</h2>
-    <br><br>
+    <br>
 </main>
 
 </html>
@@ -20,8 +20,7 @@ require_once "functions.php";
 
 <!-- PHP Code -->
 <?php
-templogin();
-
+checklogin();
 
 ?>
 

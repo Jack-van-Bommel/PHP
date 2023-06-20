@@ -18,16 +18,29 @@ function checkdb($data) {
     $query->execute();
 
     $result = $query->fetch();
-    validatelogin($result);
+    validatelogin($result, $password);
 }
 
-function validatelogin($result) {
+function validatelogin($result, $password) {
     if ($result == False) {
-        $_SESSION["loginattempt"] = 1;
-        header("location: login_form.php");
-    } else {
-        echo "Login unsure";
+        echo "Username/password incorrect, probeer het nog een keer <a href='login_form.php'>door hier te klikken.</a>";
+    }
+    else {
+        matchpassword($result, $password);
     }
 }
+
+function matchpassword($result, $password) {
+    if ($result['password'] == $password) {
+        $_SESSION['login'] = True;
+        $_SESSION['username'] = $result['username'];
+        $_SESSION['password'] = $password;
+        header('Location: index.php');
+    }
+    else {
+        echo "Username/password incorrect, probeer het nog een keer <a href='login_form.php'>door hier te klikken.</a>";
+    }
+}
+
 
 ?>

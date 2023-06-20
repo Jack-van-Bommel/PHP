@@ -22,7 +22,7 @@ function senttodb($data) {
     $username = $data["username"];
     $password = $data["password"];
 
-    $query = $conn->prepare("INSERT INTO `login` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password')");
+    $query = $conn->prepare("INSERT INTO `login` (`username`, `password`) VALUES ('$username', '$password')");
     $query->execute();
 
     printNewLogin($data);
@@ -32,7 +32,7 @@ function senttodb($data) {
 function printNewLogin($data) {
     echo "Uw nieuwe account is aangemaakt met de gegevens hieronder: <br>";
     echo "Username: " . $data['username'] . "<br><br>";
-    echo "Klik <a href='index.php'>hier</a> om terug te gaan naar de homepagina en daar in te loggen.";
+    echo "Klik <a href='login_form.php'>hier</a> om terug te gaan naar de homepagina en daar in te loggen.";
 }
 
 

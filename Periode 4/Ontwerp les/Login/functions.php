@@ -24,25 +24,28 @@ function ConnectDb(){
      }
 }
 
-// TEMP session login function
-function templogin() {
-    $_SESSION["login"] = 0;
 
-    if ($_SESSION["login"] == false) {
-        echo "U bent niet ingelogd. Login om verder te gaan. <br>";
-        echo "<a href='login_form.php'>Login</a>";
+function checklogin() {
+    if (isset($_SESSION['login'])) {
+        indexloggedin();
     }
-    else if ($_SESSION["login"] == true) {
-        echo "U bent ingelogd met de volgende gegevens:<br>";
-        echo "Username: " . "username" . "<br>";
-        echo "Password: " . "password" . "<br>";
-        logout_btn();
+    else {
+        echo "U bent niet ingelogd. Login om verder te gaan. <br><br>";
+        echo "<a href='login_form.php'>Login</a>";
     }
 }
 
 // TEMP logout btn
 function logout_btn() {
-    echo "<a href=''>Logout</a>";
+    echo "<a href='logout.php'>Logout</a>";
+}
+
+function indexloggedin() {
+    echo "<h2>Het spel kan beginnen</h2> <br>";
+    echo "U bent ingelogd met de volgende gegevens:<br>";
+    echo "Username: " . $_SESSION['username'] . "<br>";
+    echo "Password: " . $_SESSION['password'] . "<br>";
+    logout_btn();
 }
 
 

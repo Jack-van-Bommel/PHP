@@ -25,17 +25,17 @@ require_once "functions.php";
     <input type='password' name='pass' required>
     <br>
 
-    <input type='submit' name='submit_btn'>
-    <br>
+    <input type='submit' name='submit_btn' value='Login'>
 </form>
 
+<a href="register_form.php">Registration</a>
 </main>
 </html>
 
 
 <!-- PHP code -->
 <?php
-if ($_SESSION["loginattempt"] == )
+
 
 
 ?>
