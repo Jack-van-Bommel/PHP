@@ -1,38 +1,79 @@
 <?php
 
-namespace Houses {
-    class House {
-        private int $floors;
-        private int $rooms;
-        private float $width;
-        private float $height;
-        private float $depth;
-        private int $volume;
+namespace HouseRoom {
+    class House 
+    {
+        private int $volume = 0;
+        private array $rooms = array();
 
-        public function __construct( int $floors, int $rooms, float $width, float $height, float $depth ) {
-            $this->floors = $floors;
-            $this->rooms = $rooms;
-            $this->width = $width;
-            $this->height = $height;
-            $this->depth = $depth;
-            $this->setVolume( $this->width, $this->height, $this->depth );
+        public function addRroom( object $room ) {
+            $this->rooms[] = $room;
         }
 
-        public function setVolume( float $width, float $height, float $depth ): void {
-            $this->volume = round( $width * $height * $depth );
+        public function getRooms(): array {
+			return $this->rooms;
         }
 
-        public function getHouse(): string {
-            return "Dit huis heeft {$this->floors} verdiepingen, {$this->rooms} kamer en heeft een volume van {$this->volume} m3 <br>";
+        public function getTotalVolume(): int {
+			foreach( $this->rooms as $room ) {
+				$this->volume = $this->volume + $room->getVolume();
+			}
+			return $this->volume;
         }
 
-        public function getPrice(): string {
-            $price = 1500 * $this->volume;
-            return "De prijs van het huis is: {$price} <br>";
+        public function getPrice(): float {
+			return $this->volume * 3000;
         }
     }
 
-    $house_1 = new House( 2, 4, 4, 2, 5 );
-    echo $house_1->getHouse();
-    echo $house_1->getPrice();
+    class Room
+    {
+        private float $length;
+        private float $width;
+        private float $height;
+
+        public function __construct( float $length, float $width, float $height ) {
+            $this->length = $length;
+            $this->width = $width;
+            $this->height = $height;
+        }
+        
+        public function getHeight(): float {
+            return $this->height;
+        }
+
+        public function getWidth(): float {
+            return $this->width;
+        }
+
+        public function getLength(): float {
+            return $this->length;
+        }
+
+        public function getVolume(): int {
+            return (int) round( $this->length * $this->width * $this->height );
+        }
+    }
+
+	$room1 = new Room( 5.2, 5.1, 5.5 );
+	$room2 = new Room( 4.8, 4.6, 4.9 );
+	$room3 = new Room( 5.9, 2.5, 3.1 );
+
+	$house = new House();
+	$house->addRroom( $room1 );
+	$house->addRroom( $room2 );
+	$house->addRroom( $room3 );
+
+	$houserooms = $house->getRooms();
+
+	echo "Inhoud Kamers: <br><br>";
+	echo "<ul>";
+	foreach( $houserooms as $room ) {
+		$length = $room->getLength();
+		$width = $room->getWidth();
+		$height = $room->getHeight();
+		echo "<li>Lengte: {$length}m, Breedte: {$width}m, Hoogte: {$height}m</li><br>";
+	}
+	echo "</ul><br> Volume Totaal = {$house->getTotalVolume()}m3 <br>";
+	echo "Prijs van het huis is = {$house->getPrice()} Euro";
 }
