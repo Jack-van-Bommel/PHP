@@ -1,0 +1,8 @@
+{
+    "name": "jackv/oop_5",
+    "autoload": {
+        "psr-4": {
+            "Jackv\\Oop5\\": "src/"
+        }
+    }
+}
