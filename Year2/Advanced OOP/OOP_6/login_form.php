@@ -6,26 +6,14 @@
 		require_once('classes/user.php');
 		$user = new User();
 
-		$user->username = $_POST['username'];
-		$user->SetPassword($_POST['password']);
-
-		$user->ShowUser();
+		$user->setUser( $_POST['username'] );
+		$user->setPassword($_POST['password']);
 
 		// Validatie gegevens
-		$errors = $user->ValidateUser();
+		$errors = $user->validateUser();
 
-		// Indien geen fouten dan inloggen
-		if(count($errors)== 0){
-			//Inlogen
-			if ($user->LoginUser()){
-				echo "LOgin ok";
-				// Ga naar pagina??
-				header("location: index.php");
-			} else
-			{
-				array_push($errors, "Login mislukt");
-				echo "LOgin NOT ok";
-			}
+		if ( count( $errors ) == 0 ) { 
+			$user->loginUser();
 		}
 
 		if(count($errors) > 0){
@@ -37,9 +25,7 @@
 			echo "
 			<script>alert('" . $message . "')</script>
 			<script>window.location = 'login_form.php'</script>";
-		
 		}
-		
 	}
 ?>
 

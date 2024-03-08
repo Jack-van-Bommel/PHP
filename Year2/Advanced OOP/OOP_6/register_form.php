@@ -4,34 +4,25 @@
 if(isset($_POST['register-btn'])){
 	require_once('classes/user.php');
 	$user = new User();
-	$errors=[];
 
-	$user->username = $_POST['username'];
-	$user->SetPassword($_POST['password']);
+	$user->setUser( $_POST[ 'username' ] );
+	$user->setPassword($_POST['password']);
 
-	$user->ShowUser();
-
-	// Validatie gegevens
-	// Hoe???
-
-	if(count($errors) == 0){
-		// Register user
-		$errors = $user->RegisterUser();
-	}
-	
+	$errors = $user->validateNewUser();
 	if(count($errors) > 0){
 		$message = "";
 		foreach ($errors as $error) {
 			$message .= $error . "\\n";
 		}
-		
+
 		echo "
 		<script>alert('" . $message . "')</script>
 		<script>window.location = 'register_form.php'</script>";
 	
 	} else {
+		$user->registerUser();
 		echo "
-			<script>alert('" . "User registerd" . "')</script>
+			<script>alert('" . "User registerd, going to the login page." . "')</script>
 			<script>window.location = 'login_form.php'</script>";
 	}
 
