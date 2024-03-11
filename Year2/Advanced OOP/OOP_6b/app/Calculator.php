@@ -5,6 +5,7 @@ class Calculator
    public function nummerDrie($str){
       return  substr($str, 0,4)."...". substr($str, -3);
    }
+
    public function nummerCheck($str){
 
       if(gettype($str) !== "string"){
