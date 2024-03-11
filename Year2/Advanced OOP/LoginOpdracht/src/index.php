@@ -24,14 +24,6 @@
 	// Activeer de session
 	session_start();
 
-	/**
-	 * Mijn session variables worden gedelete wanneer ik terug keer naar index.php bij succesvol inloggen
-	 * en heb geen motivatie meer om het op te lossen.
-	 * 
-	 * Ik zou het willen fixen, maar in de wijze woorden van Laszlo Cravensworth:
-	 * "I can't be fucked."
-	 */
-
 	// Alert not login
 	echo "U bent niet ingelogd. Login in om verder te gaan.<br><br>";
 	// Toon login button
