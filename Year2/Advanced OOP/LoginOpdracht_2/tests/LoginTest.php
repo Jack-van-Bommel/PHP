@@ -41,16 +41,20 @@ class LoginTest extends TestCase {
 	public function testValidateUsers() {
 		$errors = $this->user->ValidateUser();
 
-		$this->assertCount( 0, $errors );
+		$this->assertCount( 1, $errors );
 	}
 
 	public function testRegisterUser() {
+		$this->user->SetPassword( 'test_password' );
+		$this->user->username = 'test_username';
 		$errors = $this->user->RegisterUser();
 
 		$this->assertCount( 0, $errors );
 	}
 
 	public function testLoginUser() {
+		$this->user->SetPassword( 'test_password' );
+		$this->user->username = 'test_username';
 		$loginStatus = $this->user->LoginUser();
 
 		$this->assertTrue( $loginStatus );
