@@ -1,0 +1,9 @@
+{
+    "name": "jackv/schooluitje",
+    "autoload": {
+        "psr-4": {
+            "Schooluitje\\": "src/"
+        }
+    },
+    "require": {}
+}

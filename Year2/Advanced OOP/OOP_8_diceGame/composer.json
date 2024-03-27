@@ -1,0 +1,9 @@
+{
+    "name": "jackv/dicegame",
+    "autoload": {
+        "psr-4": {
+            "DiceGame\\": "src/"
+        }
+    },
+    "require": {}
+}
