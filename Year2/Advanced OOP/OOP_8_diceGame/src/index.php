@@ -1,18 +1,15 @@
-<html>
-	<form method="GET">
-		<input type="submit" value="Throw Dice" name="rolldice">
-	</form>
-</html>
-
 <?php
 
 require "../vendor/autoload.php";
-
 use DiceGame\classes\Game;
 
-$game = new Game;
+session_start();
 
-if ( isset( $_GET['rolldice'] ) ) {
-	$game->play();
+if ( ! isset( $_SESSION['throwcount'] ) ) {
+	$_SESSION['throwcount'] = 0;
 }
 
+$game = new Game;
+$game->startGame();
+
+$game->exitGame();
